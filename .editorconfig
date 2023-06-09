@@ -1,0 +1,35 @@
+# .editorconfig
+
+root = true
+
+# base config
+[*]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# 2 spaces
+[*.{json, jsonc, yml, html, md, css, scss, js, rb}]
+indent_style = space
+indent_size = 2
+
+# 3 spaces: LuaRocks
+[*.{tex, cls, sty, lua}]
+indent_style = space
+indent_size = 3
+
+# 4 spaces
+[*.{astro, c, java, rs, py, ts}]
+indent_style = space
+indent_size = 4
+
+# 4 tab
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+# 8 tab: gofmt
+[*.{go}]
+indent_style = tab
+indent_size = 8

@@ -1,0 +1,12 @@
+# .gitignore
+
+# ignore cases
+
+/target
+.*
+
+# exception cases
+
+!.gitignore
+!.editorconfig
+!.latexmkrc
