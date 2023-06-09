@@ -1,3 +1,8 @@
+use std::env;
+
 fn main() {
-    println!("Hello, world!");
+    println!("Welcome to My Stack-VM.");
+
+    let args: Vec<String> = env::args().collect();
+    println!("{:?}", args);
 }
