@@ -53,4 +53,8 @@ fn main() {
     println!("I think stack length is 2 now. -> {:?}", stack.length());
     let tmp: i32 = stack.pop().unwrap();
     println!("I poped and result is {}", tmp);
+    let tmp: i32 = stack.pop().unwrap();
+    println!("I poped and result is {}", tmp);
+    println!("I think stack is empty now. -> {:?}", stack.is_empty());
+    println!("I think next action is caused panic! -> {}", stack.pop().unwrap());
 }
