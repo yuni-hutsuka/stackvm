@@ -1,26 +1,15 @@
 mod stack;
+mod file_input;
 
 use std::collections::HashMap;
 use std::env;
-use std::fs::File;
-use std::io::prelude::*;
-
-fn fileio(arg: &String) -> String {
-    let filename = arg;
-    let mut f: File = File::open(filename).expect("file not found!");
-    let mut contents: String = String::new();
-    f.read_to_string(&mut contents)
-        .expect("Something went wrong reading the file contents...");
-
-    return contents;
-}
 
 fn main() {
     // 引数受け取り
     let args: Vec<String> = env::args().collect();
 
     // ファイルオープン
-    let contents: String = fileio(&args[1]);
+    let contents: String = file_input::input::fileio(&args[1]);
 
     // contentsを分割
     let splitted = contents.lines().collect::<Vec<&str>>();
