@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
@@ -37,18 +38,29 @@ fn main() {
 
     // contentsを分割
     let splitted = contents.lines().collect::<Vec<&str>>();
+
+    let mut pointer: usize = 0;
     let mut program_counter = Vec::new();
-
-    for line in splitted {
-        let tmp = line.split_whitespace().collect::<Vec<&str>>();
-        program_counter.push(tmp);
-    }
-
+    let mut label_counter: HashMap<String, i32> = HashMap::new();
     let mut stack: Stack = Stack::new();
 
-    for i in 0..program_counter.len() {
-        let tmp = &program_counter[i];
+    // program_counter を定義
+    for line in splitted {
+        let tmp = line.split_whitespace().collect::<Vec<&str>>();
+        if tmp[0] == "label" {
+            println!("Labeled here! l.{}", pointer);
+            label_counter.insert(tmp[1].to_owned(), pointer.try_into().unwrap());
+        }
+        program_counter.push(tmp);
+        pointer += 1;
+    }
+
+    pointer = 0;
+
+    while pointer < program_counter.len() {
+        let tmp = &program_counter[pointer];
         let cmd = tmp[0].to_string();
+
         match &*cmd {
             "push" => {
                 println!("push! -> {}", tmp[1]);
@@ -57,6 +69,7 @@ fn main() {
             "pop" => {
                 if stack.is_empty(){
                     println!("Stack is empty!");
+                    pointer += 1;
                     continue;
                 }
                 let result = stack.pop();
@@ -65,6 +78,7 @@ fn main() {
             "add" => {
                 if stack.length() < 2 {
                     println!("lower!");
+                    pointer += 1;
                     continue;
                 }
                 let result = stack.pop().unwrap() + stack.pop().unwrap();
@@ -74,6 +88,7 @@ fn main() {
             "sub" => {
                 if stack.length() < 2 {
                     println!("lower!");
+                    pointer += 1;
                     continue;
                 }
                 let result = stack.pop().unwrap() - stack.pop().unwrap();
@@ -83,6 +98,7 @@ fn main() {
             "mul" => {
                 if stack.length() < 2 {
                     println!("lower!");
+                    pointer += 1;
                     continue;
                 }
                 let result = stack.pop().unwrap() * stack.pop().unwrap();
@@ -92,13 +108,21 @@ fn main() {
             "div" => {
                 if stack.length() < 2 {
                     println!("lower!");
+                    pointer += 1;
                     continue;
                 }
                 let result = stack.pop().unwrap() / stack.pop().unwrap();
                 println!("divided! -> {}", result);
                 stack.push(result);
             },
+            "jump" => {
+                println!("hop, step, jump! to {}", tmp[1].to_owned());
+                let value: usize = *label_counter.get(tmp[1]).expect("unknow label!") as usize;
+                pointer = value;
+            },
             _ => (),
         }
+
+        pointer += 1;
     }
 }
