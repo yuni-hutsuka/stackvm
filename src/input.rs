@@ -1,7 +1,12 @@
 pub(crate) mod input {
+    use std::env;
     use std::collections::HashMap;
     use std::fs::File;
     use std::io::prelude::*;
+
+    pub fn accept_args() -> Vec<String> {
+        return env::args().collect::<Vec<String>>();
+    }
 
     pub fn read_file(arg: &String) -> String {
         let filename = arg;

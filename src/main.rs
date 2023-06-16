@@ -1,11 +1,9 @@
-mod stack;
 mod input;
-
-use std::env;
+mod stack;
 
 fn main() {
     // 引数受け取り
-    let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = input::input::accept_args();
 
     // ファイルオープン
     let contents: String = input::input::read_file(&args[1]);
