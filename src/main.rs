@@ -120,7 +120,20 @@ fn main() {
                 let value: usize = *label_counter.get(tmp[1]).expect("unknow label!") as usize;
                 pointer = value;
             },
-            _ => (),
+            "jump_if" => {
+                println!("if 0, jump to labe! if 1, through!");
+                let bool_num = stack.pop().unwrap();
+                if bool_num == 0 {
+                    println!("0, 0, 0! hop, step, jumping!");
+                    let value: usize = *label_counter.get(tmp[1]).expect("unknow label!") as usize;
+                    pointer = value;
+                } else {
+                    println!("1, 1, 1! through!");
+                }
+            }
+            _ => {
+                println!("unknown cmd...");
+            },
         }
 
         pointer += 1;
