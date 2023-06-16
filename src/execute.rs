@@ -3,9 +3,11 @@ mod stack;
 pub(crate) mod execution {
     use std::collections::HashMap;
 
+    use super::stack;
+
     pub(crate) fn execution(program_counter: Vec<Vec<&str>>, label_counter: HashMap<String, i32>) {
         let mut pointer: usize = 0;
-        let stack = stack::stack::Stack::new();
+        let mut stack = stack::stack::Stack::new();
 
         while pointer < program_counter.len() {
             let tmp = &program_counter[pointer];
