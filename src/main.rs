@@ -1,29 +1,9 @@
+mod stack;
+
 use std::collections::HashMap;
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
-
-struct Stack {
-    stack: Vec<i32>,
-}
-
-impl Stack {
-    fn new() -> Self {
-        Stack { stack: Vec::new() }
-    }
-    fn push(&mut self, value: i32) {
-        self.stack.push(value)
-    }
-    fn pop(&mut self) -> Option<i32> {
-        self.stack.pop()
-    }
-    fn is_empty(&self) -> bool {
-        self.stack.is_empty()
-    }
-    fn length(&mut self) -> usize {
-        self.stack.len()
-    }
-}
 
 fn main() {
     // 引数受け取り
@@ -42,7 +22,7 @@ fn main() {
     let mut pointer: usize = 0;
     let mut program_counter = Vec::new();
     let mut label_counter: HashMap<String, i32> = HashMap::new();
-    let mut stack: Stack = Stack::new();
+    let mut stack = stack::stack::Stack::new();
 
     // program_counter を定義
     for line in splitted {
