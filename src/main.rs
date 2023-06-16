@@ -1,5 +1,5 @@
 mod stack;
-mod file_input;
+mod input;
 
 use std::collections::HashMap;
 use std::env;
@@ -9,7 +9,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     // ファイルオープン
-    let contents: String = file_input::input::fileio(&args[1]);
+    let contents: String = input::input::fileio(&args[1]);
 
     // contentsを分割
     let splitted = contents.lines().collect::<Vec<&str>>();
