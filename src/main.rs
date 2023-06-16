@@ -115,6 +115,18 @@ fn main() {
                 println!("divided! -> {}", result);
                 stack.push(result);
             },
+            "equal" => {
+                println!("compare args and stack-top!");
+                let stack_top = stack.pop().unwrap();
+                stack.push(stack_top);
+                if tmp[1].parse::<i32>().unwrap() == stack_top {
+                    println!("there are equal!");
+                    stack.push(1);
+                } else {
+                    println!("there are not equal!");
+                    stack.push(0);
+                }
+            },
             "jump" => {
                 println!("hop, step, jump! to {}", tmp[1].to_owned());
                 let value: usize = *label_counter.get(tmp[1]).expect("unknow label!") as usize;
