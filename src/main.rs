@@ -1,7 +1,6 @@
 mod stack;
 mod input;
 
-use std::collections::HashMap;
 use std::env;
 
 fn main() {
@@ -9,28 +8,14 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     // ファイルオープン
-    let contents: String = input::input::fileio(&args[1]);
-
+    let contents: String = input::input::read_file(&args[1]);
     // contentsを分割
-    let splitted = contents.lines().collect::<Vec<&str>>();
+    let lines = contents.lines().collect::<Vec<&str>>();
+    // initial_load
+    let (program_counter, label_counter) = input::input::initial_load(lines);
 
     let mut pointer: usize = 0;
-    let mut program_counter = Vec::new();
-    let mut label_counter: HashMap<String, i32> = HashMap::new();
     let mut stack = stack::stack::Stack::new();
-
-    // program_counter を定義
-    for line in splitted {
-        let tmp = line.split_whitespace().collect::<Vec<&str>>();
-        if tmp[0] == "label" {
-            println!("Labeled here! l.{}", pointer);
-            label_counter.insert(tmp[1].to_owned(), pointer.try_into().unwrap());
-        }
-        program_counter.push(tmp);
-        pointer += 1;
-    }
-
-    pointer = 0;
 
     while pointer < program_counter.len() {
         let tmp = &program_counter[pointer];
