@@ -127,6 +127,30 @@ fn main() {
                     stack.push(0);
                 }
             },
+            "lt" => {
+                println!("compare args and stack-top!");
+                let stack_top = stack.pop().unwrap();
+                stack.push(stack_top);
+                if tmp[1].parse::<i32>().unwrap() > stack_top {
+                    println!("stack-top is less than arg {}!", tmp[1].parse::<i32>().unwrap());
+                    stack.push(1);
+                } else {
+                    println!("stack-top is not less than arg {}!", tmp[1].parse::<i32>().unwrap());
+                    stack.push(0);
+                }
+            },
+            "gt" => {
+                println!("compare args and stack-top!");
+                let stack_top = stack.pop().unwrap();
+                stack.push(stack_top);
+                if tmp[1].parse::<i32>().unwrap() < stack_top {
+                    println!("stack-top is greater than arg {}!", tmp[1].parse::<i32>().unwrap());
+                    stack.push(1);
+                } else {
+                    println!("stack-top is not greater than arg {}!", tmp[1].parse::<i32>().unwrap());
+                    stack.push(0);
+                }
+            },
             "jump" => {
                 println!("hop, step, jump! to {}", tmp[1].to_owned());
                 let value: usize = *label_counter.get(tmp[1]).expect("unknow label!") as usize;
@@ -142,7 +166,10 @@ fn main() {
                 } else {
                     println!("1, 1, 1! through!");
                 }
-            }
+            },
+            "label" => {
+                println!("label!");
+            },
             _ => {
                 println!("unknown cmd...");
             },
